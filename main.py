@@ -1,7 +1,11 @@
+import pathlib
+
 from RPA.Browser.Selenium import Selenium
 import re
 from RPA.Excel.Application import Application
 from RPA.Excel import Files
+from pathlib import Path
+
 import os
 import RPA.Excel
 from RPA.FileSystem import FileSystem
@@ -22,36 +26,49 @@ def click_buton():
 
 
 def create_workbook():
-    create_workbook(path=None, fmt='xlsx')
+
+    create_workbook('..\\itdashboard\\agencies','xlsx')
+
+
+    # file_exel =  open('../itdashboard/agencies.xlsx', 'w')
+    # file_exel.close()
 
 
 
 
-def read_excel_worksheet(path, worksheet):
-    create_workbook(path='C:/Users/User/PycharmProjects/itdashboard/agencies', fmt='xlsx')
 
-    lib = Files()
 
-    lib.open_workbook(path)
-    try:
-        return lib.read_worksheet(worksheet)
-    finally:
-        lib.close_workbook()
+# def read_excel_worksheet(path, worksheet):
+#
+#
+#     lib = Files()
+#
+#     lib.open_workbook(path)
+#     try:
+#         return lib.read_worksheet(worksheet)
+#     finally:
+#         lib.close_workbook()
 
 def amounts():
-
-    # create_workbook(path='itdashboard/', fmt='agencies.xlsx')
+    path = pathlib.WindowsPath
+    path = '..\\itdashboard\\agencies'
+    # file_exel = open('../itdashboard/agencies.xlsx', 'w')
+    # file_exel.close()
 
     app = Application()
 
     app.open_application()
+    app.add_new_workbook()
+    app.add_new_sheet('agencies',create_workbook=True)
+    # app.save_excel()
 
 
-    app.open_workbook('agencies.xlsx')
+
+    app.open_workbook()
     # app.set_active_worksheet(sheetname='agencies')
     # app.write_to_cells(row=1, column=1, value='new data')
     app.save_excel()
-    app.quit_application()
+    # app.quit_application()
 
     # i_t = [i for i in click_buton()]
     # print(i_t)
@@ -86,6 +103,7 @@ def store_screenshot(filename):
 def main():
     open_the_website(url="https://itdashboard.gov/")
     click_buton()
+    create_workbook()
     amounts()
 
 
